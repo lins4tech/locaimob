@@ -1,0 +1,80 @@
+<h3>Cadastro de Pessoa Jurídica
+</h3>
+<!-- START panel-->
+<div class="panel panel-default" ng-controller="clienteController as clienteCtrl">
+    <div class="panel-body">
+        <form action="/" method="POST" form-wizard="" validate-steps="true" validate-form="" steps="4">
+            <div class="form-wizard wizard-horizontal">
+                <!-- MENU/Passos DO WIZARD-->
+                <ol class="row">
+                    <li ng-class="{'active':wizard.active(1)}" ng-click="wizard.go(1)" class="col-md-3">
+                        <h4>Dados da Empresa</h4>
+                        <small class="text-muted">Passo #1</small>
+                    </li>
+                    <li ng-class="{'active':wizard.active(2)}" ng-click="wizard.go(2)" class="col-md-3">
+                        <h4>Endereço</h4>
+                        <small class="text-muted">Passo #2</small>
+                    </li>
+                    <li ng-class="{'active':wizard.active(3)}" ng-click="wizard.go(3)" class="col-md-3">
+                        <h4>Documentos Digitalizados</h4>
+                        <small class="text-muted">Passo #3.</small>
+                    </li>
+                    <li ng-class="{'active':wizard.active(4)}" ng-click="wizard.go(4)" class="col-md-3">
+                        <h4>Pronto!</h4>
+                        <small class="text-muted">Cliente Cadastrado</small>
+                    </li>
+                </ol>
+                <!-- END wizard steps indicator-->
+                <!-- START Wizard Step inputs -->
+                <div id="step1" ng-show="wizard.active(1)">
+                    <fieldset>
+                        <legend>Informações da Empresa</legend>
+                        <div ng-include="'resources/app/views/cliente/pessoaJuridicaFormDadosEmpresa.html'" />
+                    </fieldset>
+
+                    <ul class="pager">
+                        <li class="next"><a href="#" ng-click="wizard.go(2)">Avançar<span>&rarr;</span></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- SEGUNDA PARTE - ENDERECO FORM -->
+                <div id="step2" ng-show="wizard.active(2)">
+                    <fieldset>
+                        <legend>Endereço - Pessoa Jurídica</legend>
+                        <div ng-include="'resources/app/views/cliente/pessoaJuridicaFormEndereco.html'" />
+                    </fieldset>
+                    <ul class="pager">
+                        <li class="previous">
+                            <a href="#" ng-click="wizard.go(1)">
+                                <span>&larr; Voltar</span>
+                            </a>
+                        </li>
+                        <li class="next"><a href="#" ng-click="wizard.go(3)">Avançar <span>&rarr;</span></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- START Wizard Step inputs -->
+                <div id="step3" ng-show="wizard.active(3)">
+                    <fieldset>
+                        <legend>Documentos/Arquivos da Empresa</legend>
+                        <div ng-include="'resources/app/views/upload/fileUpload.html'" />
+                    </fieldset>
+                    <ul class="pager">
+                        <li class="previous">
+                            <a href="#" ng-click="wizard.go(2)">
+                                <span>&larr; Voltar</span>
+                            </a>
+                        </li>
+                        <li class="next"><a href="#" ng-click="clienteCtrl.clickSalvarClientePJ()">Finalizar<span>&rarr;</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END Wizard Step inputs -->
+
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END panel -->

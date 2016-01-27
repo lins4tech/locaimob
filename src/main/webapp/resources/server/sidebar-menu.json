@@ -1,0 +1,83 @@
+[
+  {
+    "text": "LocaImob - Menu",
+    "heading": "true"
+  },
+  {
+    "text": "Imóveis",
+    "sref": "#",
+    "icon": "fa fa-building-o",
+    "submenu": [
+      { "text": "* Alugados",
+        "sref": "app.imovelAlugados"
+      },
+      { "text": "* Disponíveis",
+        "sref": "app.imovelDisponivel"
+      }
+    ]
+  },
+  {
+    "text": "Corretores",
+    "sref": "app.viewCorretores",
+    "icon": "icon-user"
+  },
+  {
+    "text": "Contratos",
+    "sref": "app.viewContratos",
+    "icon": "fa fa-files-o",
+    "submenu": [
+      { "text": "Novo Contrato",
+        "sref": "app.newContrato",
+        "icon": "fa fa-file-o"
+      },
+      { "text": "Consultar",
+        "sref": "app.consultarContrato",
+        "icon": "fa fa-search"
+      }
+    ]
+  },
+  {
+    "text": "Clientes",
+    "sref": "#",
+    "icon": "icon-people",
+    "submenu": [
+      {
+        "text": "Novo Cliente",
+        "sref": "#",
+        "icon": "fa fa-user-plus",
+        "submenu": [
+          {
+            "text": "* Pessoa Física",
+            "sref": "app.newCliente"
+          },
+          {
+            "text": "* Pessoa Jurídica",
+            "sref": "app.newClientePJ"
+          }
+        ]
+      },
+      {
+        "text": "Pesquisar",
+        "sref": "app.submenu",
+        "icon": "fa fa-search"
+      }
+    ]
+  },
+  {
+    "text": "Boletos/Pagamentos",
+    "sref": "#",
+    "icon": "fa fa-money",
+    "submenu": [
+      {
+        "text": "Consultar Boletos",
+        "sref": "app.consultarBoleto",
+        "icon": "fa fa-search"
+      },
+      {
+        "text": "Gerar Boleto",
+        "sref": "app.gerarBoleto",
+        "icon": "fa fa-file-text-o"
+      }
+    ]
+  }
+]

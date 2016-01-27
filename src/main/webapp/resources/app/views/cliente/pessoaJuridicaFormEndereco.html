@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>CEP</label>
+            <div class="input-group">
+                <input type="text" name="cepInput" data-parsley-group="step2" placeholder="#####-###" ng-model="clienteCtrl.newPessoaJuridica.endereco.cep" required class="form-control" masked ui-mask="99999-999" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="clienteCtrl.clickFindEnderecoByCep(clienteCtrl.newPessoaJuridica.endereco.cep)" ng-disabled="!clienteCtrl.isPreencherByCEP">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="padding-top: 22px">
+                <div class="checkbox c-checkbox">
+                    <label>
+                        <input type="checkbox" checked="" ng-model="clienteCtrl.isPreencherByCEP" />
+                        <span class="fa fa-check"></span>Preencher Automaticamente</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <label>Endereço</label>
+        <div class="controls">
+            <input type="text" name="logradouroInput" ng-model="clienteCtrl.newPessoaJuridica.endereco.logradouro" data-parsley-group="step2" placeholder="Endereço" required="required" class="form-control" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <label>Complemento</label>
+        <div class="controls">
+            <input type="text" name="complementoInput" ng-model="clienteCtrl.newPessoaJuridica.endereco.complemento" data-parsley-group="step2" placeholder="Complemento" class="form-control" />
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <label>País</label>
+
+        <select name="paisInput" class="form-control" ng-model="clienteCtrl.newPessoaJuridica.endereco.pais">
+            <option>Brasil</option>
+        </select>
+
+    </div>
+    <div class="col-md-3">
+        <label>Estado</label>
+        <ui-select id="estadoInput" ng-model="clienteCtrl.estadoSelected" theme="bootstrap" class="text-left" ng-change="clienteCtrl.changeEstadoSelected()">
+            <ui-select-match placeholder="Selecione o estado">{{$select.selected.sigla}}</ui-select-match>
+            <ui-select-choices repeat="estado in clienteCtrl.listEstados | filter: $select.search">
+                <span ng-bind-html="estado.sigla | highlight: $select.search"></span>
+                <br>
+                <small ng-bind-html="estado.nomeEstado | highlight: $select.search"></small>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <label>Cidade</label>
+        <ui-select id="cidadeInput" ng-model="clienteCtrl.cidadeSelected" theme="bootstrap" class="text-left" ng-disabled="clienteCtrl.estadoSelected == null" ng-change="clienteCtrl.changeCidadeSelected()">
+            <ui-select-match placeholder="Selecione a cidade">{{$select.selected.nomeCidade}}</ui-select-match>
+            <ui-select-choices repeat="cidade in clienteCtrl.listCidades | filter: $select.search">
+                <span ng-bind-html="cidade.nomeCidade | highlight: $select.search"></span>
+                <!--<small ng-bind-html="estado.ID | highlight: $select.search"></small>-->
+            </ui-select-choices>
+        </ui-select>
+    </div>
+    <div class="col-md-3">
+        <label>Bairro</label>
+        <ui-select id="bairroInput" ng-model="clienteCtrl.bairroSelected" theme="bootstrap" class="text-left" ng-disabled="clienteCtrl.cidadeSelected == null">
+            <ui-select-match placeholder="Selecione o bairro">{{$select.selected.nomeBairro}}</ui-select-match>
+            <ui-select-choices repeat="bairro in clienteCtrl.listBairros | filter: $select.search">
+                <span ng-bind-html="bairro.nomeBairro | highlight: $select.search"></span>
+                <!--<small ng-bind-html="estado.ID | highlight: $select.search"></small>-->
+            </ui-select-choices>
+        </ui-select>
+    </div>
+
+</div>

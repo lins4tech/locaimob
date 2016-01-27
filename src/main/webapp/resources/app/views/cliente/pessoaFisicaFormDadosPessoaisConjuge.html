@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Nome Completo - Cônjuge</label>
+            <div class="controls">
+                <input type="text" name="nomeCompletoConjugeInput" ng-model="clienteCtrl.newPessoaFisica.nomeConjuge" data-parsley-group="step1" placeholder="Nome Completo - Cônjuge" class="form-control"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>CPF - Cônjuge</label>
+            <div class="controls">
+                <input type="text" name="cpfConjugeInput" ng-model="clienteCtrl.newPessoaFisica.cpfConjuge" masked ui-mask="999.999.999-99" data-parsley-group="step1" placeholder="###.###.###-##" class="form-control"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>RG - Cônjuge</label>
+            <div class="controls">
+                <input type="text" name="rgConjugeInput" ng-model="clienteCtrl.newPessoaFisica.rgConjuge" data-parsley-group="step1" placeholder="RG" class="form-control"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Orgão Expedidor - Cônjuge</label>
+            <div class="controls">
+                <input type="text" name="orgaoExpedidorConjugeInput" ng-model="clienteCtrl.newPessoaFisica.rgExpedidorConjuge" data-parsley-group="step1" placeholder="Orgão Expedidor" class="form-control"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Gênero - Cônjuge</label>
+            <div style="padding-top: 5px">
+                <label class="radio-inline c-radio">
+                    <input id="inputRadioGeneroMasculinoConjuge" ng-model="clienteCtrl.newPessoaFisica.sexoConjuge" type="radio" name="radioGeneroConjuge" value="masculino"/>
+                    <span class="fa fa-user"></span>
+                    M
+                </label>
+                <label class="radio-inline c-radio">
+                    <input id="inputRadioGeneroFemininoConjuge" ng-model="clienteCtrl.newPessoaFisica.sexoConjuge" type="radio" name="radioGeneroConjuge" value="feminino" checked/>
+                    <span class="fa fa-female"></span>
+                    F
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Nacionalidade - Cônjuge</label>
+            <div class="controls">
+                <input type="text" name="nacionalidadeInput" ng-model="clienteCtrl.newPessoaFisica.nacionalidadeConjuge" data-parsley-group="step1" placeholder="Nacionalidade" class="form-control"/>
+            </div>
+        </div>
+    </div>
+</div>

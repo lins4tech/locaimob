@@ -1,0 +1,20 @@
+[
+  {
+    "idPessoa": 2,
+    "nome": "Ayres e Lins Construções Ltda",
+    "cpfOrCnpj": "14.009.078/0001-81",
+    "tipoPessoa": "PJ"
+  },
+  {
+    "idPessoa": 3,
+    "nome": "Dinadabia Araujo",
+    "cpfOrCnpj": "88877722240",
+    "tipoPessoa": "PF"
+  },
+  {
+    "idPessoa": 1,
+    "nome": "Leurimar da Silva Lins",
+    "cpfOrCnpj": "05259988450",
+    "tipoPessoa": "PF"
+  }
+]

@@ -1,0 +1,53 @@
+<h3>Corretores
+</h3>
+<div class="row">
+    <div class="panel panel-default" ng-controller="corretorController as corretorCtrl">
+        <div class="panel-heading">Novo Corretor</div>
+        <div class="panel-body">
+            <form name="corretorForm" class="form-horizontal">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" placeholder="Nome Completo" class="form-control" required/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">E-mail</label>
+                    <input name="email" type="email" placeholder="E-mail" class="form-control" ng-model="corretorCtrl.corretor.email" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Gênero</label>
+                    <div style="padding-top: 5px">
+                        <label class="radio-inline c-radio">
+                            <input id="inputRadioMasculino" type="radio" name="i-radio" value="masculino" checked="checked" />
+                            <span class="fa fa-user"></span>
+                            Masculino
+                        </label>
+
+                        <label class="radio-inline c-radio">
+                            <input id="inputRadioFeminino" type="radio" name="i-radio" value="feminino" />
+                            <span class="fa fa-female"></span>
+                            Feminino
+                        </label>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="inputDataNascimento">Data de Nascimento</label>
+                    <p class="input-group">
+                        <input id="inputDataNascimento" type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="corretorCtrl.dateTest" placeholder="DD/MM/YYYY" is-open="corretorCtrl.statusDatePicker.opened" datepicker-mode="year" ng-required="true" max-date="corretorCtrl.dateToday" close-text="Fechar" current-text="Hoje" clear-text="Limpar" />
+              				<span class="input-group-btn">
+                				<button type="button" class="btn btn-default" ng-click="corretorCtrl.openDatePicker($event)">
+                                    <i class="icon-calendar"></i>
+                                </button>
+              				</span>
+                    </p>
+                </div>
+
+                <button type="submit" class="btn btn-sm btn-primary">
+                    <i class="fa fa-save"></i>
+                    Salvar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

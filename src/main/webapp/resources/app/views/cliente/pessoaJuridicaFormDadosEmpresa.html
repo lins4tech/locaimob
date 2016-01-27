@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Razão Social</label>
+            <div class="controls">
+                <input type="text" name="razaoSocialInput"
+                       ng-model="clienteCtrl.newPessoaJuridica.razaoSocial"
+                       data-parsley-group="step1" placeholder="Razão Social"
+                       required="required" class="form-control"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Nome Fantasia</label>
+            <div class="controls">
+                <input type="text" name="nomeFantasiaInput" ng-model="clienteCtrl.newPessoaJuridica.nomeFantasia"
+                       data-parsley-group="step1" placeholder="Nome Fantasia" class="form-control"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>CNPJ</label>
+            <div class="controls">
+                <input type="text" name="cnpjInput" ng-model="clienteCtrl.newPessoaJuridica.cnpj" masked ui-mask="99.999.999/9999-99" data-parsley-group="step1" placeholder="##.###.###/####-##" required class="form-control"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="inputDataAbertura">Data de Abertura</label>
+            <p class="input-group">
+                <input id="inputDataAbertura" type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="clienteCtrl.newPessoaJuridica.dataFundacao"
+                       placeholder="DD/MM/YYYY" is-open="clienteCtrl.statusDatePicker.opened" datepicker-mode="year" ng-required="true" max-date="clienteCtrl.dateToday" close-text="Fechar" current-text="Hoje" clear-text="Limpar"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="clienteCtrl.openDatePicker($event)">
+                        <i class="icon-calendar"></i>
+                    </button>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Atividade Principal</label>
+            <div class="controls">
+                <input type="text" name="atividadePrincipalInput" ng-model="clienteCtrl.newPessoaJuridica.atividadePrincipal"
+                       data-parsley-group="step1" placeholder="Atividade Principal" class="form-control"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Nome do Sócio Administrador</label>
+            <div class="controls">
+                <input type="text" name="nomeSocioAdministradorInput"
+                       ng-model="clienteCtrl.newPessoaJuridica.nomeSocioAdministrador"
+                       data-parsley-group="step1" placeholder="Nome do Sócio Administrador"
+                       required="required" class="form-control"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>CPF do Sócio Administrador</label>
+            <div class="controls">
+                <input type="text" name="cpfSocioInput" ng-model="clienteCtrl.newPessoaJuridica.cpfSocioAdministrador"
+                       masked ui-mask="999.999.999-99" data-parsley-group="step1"
+                       placeholder="###.###.###-##" required class="form-control"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label">E-mail para Contato</label>
+            <input name="email" type="email" placeholder="E-mail" class="form-control"
+                   ng-model="clienteCtrl.newPessoaJuridica.email" required
+                   data-parsley-group="step1"/>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Tel. Residencial</label>
+            <input type="text" name="residencialInput" ng-model="clienteCtrl.newPessoaJuridica.telResidencial" masked ui-mask="(99)9999-9999" data-parsley-group="step1" placeholder="(##)####-####" class="form-control"/>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Celular</label>
+            <input type="text" name="celularInput" ng-model="clienteCtrl.newPessoaJuridica.telCelular" masked ui-mask="(99)99999-9999" data-parsley-group="step1" placeholder="(##)#####-####" class="form-control"/>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Faturamento Mensal</label>
+            <div class="input-group">
+                <span class="input-group-addon">R$</span>
+                <input type="text" name="rendaMensalInput" ng-model="clienteCtrl.newPessoaJuridica.rendaMensal" data-parsley-group="step1" placeholder="Renda Mensal" class="form-control"/>
+            </div>
+        </div>
+    </div>
+</div>
