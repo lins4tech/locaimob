@@ -47,7 +47,7 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
             animation: true,
             templateUrl: 'modalSelecionarImovel.html',
             controller: 'contratoControllerModalInstance as contratoModalInstanceCtrl',
-            size: 'sm',
+            size: size,
             resolve: {}
         });
 
