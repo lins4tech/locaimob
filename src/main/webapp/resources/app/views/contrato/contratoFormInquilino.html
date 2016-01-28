@@ -5,7 +5,7 @@
 
             <div class="controls">
                 <ui-select ng-model="contratoCtrl.pessoaSelected" theme="bootstrap">
-                    <ui-select-match placeholder="Selecione ou consulte por nome">{{$select.selected.nome}}
+                    <ui-select-match placeholder="Consultar por NOME ou CPF">{{$select.selected.nome}}
                     </ui-select-match>
                     <ui-select-choices
                             repeat="pessoa in contratoCtrl.listPessoas | propsFilter: {nome: $select.search, cpfOrCnpj: $select.search}">
@@ -19,51 +19,24 @@
         </div>
     </div>
 </div>
-{{contratoCtrl.pessoaSelected.idpessoa}}
-<div class="row" ng-show="contratoCtrl.pessoaSelected.idpessoa > 0">
-    <div class="col-md-6" ng-show="contratoCtrl.pessoaSelected.tipoPessoa == 'PF'">
+<div class="row" ng-show="contratoCtrl.pessoaSelected.idPessoa > 0">
+    <div class="col-md-6" >
         <div class="form-group">
-            <label>Nome do Completo (Locatário)</label>
-
+            <label ng-show="contratoCtrl.pessoaSelected.tipoPessoa == 'PF'">Nome do Completo (Locatário)</label>
+            <label ng-show="contratoCtrl.pessoaSelected.tipoPessoa == 'PJ'">Nome da Empresa (Locatário)</label>
             <div class="controls">
-                <input type="text" ng-value="contratoCtrl.pessoaSelected.nomeCompleto" ng-disabled="true"
-                       class="form-control"/>
+                <input type="text" ng-value="contratoCtrl.pessoaSelected.nome" ng-disabled="true" class="form-control"/>
             </div>
         </div>
-    </div>
-    <div class="col-md-6" ng-show="contratoCtrl.pessoaSelected.tipoPessoa == 'PJ'">
         <div class="form-group">
-            <label>Nome da Empresa (Locatário)</label>
-
+            <label ng-show="contratoCtrl.pessoaSelected.tipoPessoa == 'PF'">CPF</label>
+            <label ng-show="contratoCtrl.pessoaSelected.tipoPessoa == 'PJ'">CNPJ</label>
             <div class="controls">
-                <input type="text" ng-value="contratoCtrl.pessoaSelected.razaoSocial" ng-disabled="true"
-                       class="form-control"/>
+                <input type="text" ng-value="contratoCtrl.pessoaSelected.cpfOrCnpj" ng-disabled="true" class="form-control"/>
             </div>
         </div>
-    </div>
-    <div class="col-md-6" ng-show="contratoCtrl.pessoaSelected.tipoPessoa == 'PF'">
         <div class="form-group">
-            <label>CPF</label>
-
-            <div class="controls">
-                <input type="text" ng-value="contratoCtrl.pessoaSelected.cpf" ng-disabled="true" class="form-control"/>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6" ng-show="contratoCtrl.pessoaSelected.tipoPessoa == 'PJ'">
-        <div class="form-group">
-            <label>CNPJ</label>
-
-            <div class="controls">
-                <input type="text" ng-value="contratoCtrl.pessoaSelected.cnpj" ng-disabled="true" class="form-control"/>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>Endereço</label>
-
+            <label>Endereço Completo</label>
             <div class="controls">
                 <input type="text" ng-value="contratoCtrl.pessoaSelected.enderecoCompleto" ng-disabled="true" class="form-control"/>
             </div>
