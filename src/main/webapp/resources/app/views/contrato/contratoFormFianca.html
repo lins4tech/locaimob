@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="checkbox c-checkbox">
+                    <label>
+                        <input type="checkbox" checked="" ng-model="contratoCtrl.isSemFianca" />
+                        <span class="fa fa-check"></span>Contrato Sem Fiança</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="!contratoCtrl.isSemFianca">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Tipo de Fiança</label>
+            <div style="padding-top: 5px">
+                <label class="radio-inline c-radio">
+                    <input id="inputRadioTipoSerguroFiador" type="radio" ng-model="contratoCtrl.newContrato.tipoFianca" name="radioTipoFianca" value="Fiador" checked="checked"/>
+                    <span class="fa fa-user"></span>
+                    Com Fiador
+                </label>
+                <label class="radio-inline c-radio">
+                    <input id="inputRadioTipoFiancaSeguro" type="radio" ng-model="contratoCtrl.newContrato.tipoFianca" name="radioTipoFianca" value="Seguro-Fiança"/>
+                    <span class="fa fa-lock"></span>
+                    Seguro-Fiança
+                </label>
+                <label class="radio-inline c-radio">
+                    <input id="inputRadioTipoFiancaCaucao" type="radio" ng-model="contratoCtrl.newContrato.tipoFianca" name="radioTipoFianca" value="Caução"/>
+                    <span class="fa fa-money"></span>
+                    Caução/Depósito
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="!contratoCtrl.isSemFianca">
+    <div class="row" ng-show="contratoCtrl.newContrato.tipoFianca == 'Fiador'">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Selecionar Fiador</label>
+                <div class="controls">
+                    <ui-select ng-model="contratoCtrl.fiadorSelected" theme="bootstrap">
+                        <ui-select-match placeholder="Consultar por NOME ou CPF">{{$select.selected.nome}}
+                        </ui-select-match>
+                        <ui-select-choices
+                                repeat="pessoa in contratoCtrl.listPessoas | propsFilter: {nome: $select.search, cpfOrCnpj: $select.search}">
+                            <div ng-bind-html="pessoa.nome | highlight: $select.search"></div>
+                            <small>Cpf/Cnpj:
+                                <span ng-bind-html="''+pessoa.cpfOrCnpj | highlight: $select.search"></span>
+                            </small>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- COM FIADOR -->
+    <div class="row" ng-show="contratoCtrl.newContrato.tipoFianca == 'Fiador' && contratoCtrl.fiadorSelected.idPessoa > 0">
+        <div class="col-md-4" >
+            <div class="form-group">
+                <label ng-show="contratoCtrl.fiadorSelected.tipoPessoa == 'PF'">Nome do Completo (Locatário)</label>
+                <label ng-show="contratoCtrl.fiadorSelected.tipoPessoa == 'PJ'">Nome da Empresa (Locatário)</label>
+                <div class="controls">
+                    <input type="text" ng-model="contratoCtrl.fiadorSelected.nome" ng-disabled="true" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label ng-show="contratoCtrl.fiadorSelected.tipoPessoa == 'PF'">CPF</label>
+                <label ng-show="contratoCtrl.fiadorSelected.tipoPessoa == 'PJ'">CNPJ</label>
+                <div class="controls">
+                    <input type="text" ng-model="contratoCtrl.fiadorSelected.cpfOrCnpj" ng-disabled="true" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Endereço Completo</label>
+                <div class="controls">
+                    <input type="text" ng-model="contratoCtrl.fiadorSelected.enderecoCompleto" ng-disabled="true" class="form-control"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- SEGURO-FIANÇA -->
+    <div class="row" ng-show="contratoCtrl.newContrato.tipoFianca == 'Seguro-Fiança'">
+        <div class="col-md-4" >
+            <div class="form-group">
+                <label>Seguradora</label>
+                <div class="controls">
+                    <input type="text" ng-model="contratoCtrl.newContrato.seguradoraSeguroFianca" class="form-control"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="contratoCtrl.newContrato.tipoFianca == 'Seguro-Fiança'">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Nº da Apólice</label>
+                <div class="controls">
+                    <input type="text" ng-model="contratoCtrl.newContrato.apoliceSeguroFianca" class="form-control"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CAUÇÃO -->
+    <div class="row" ng-show="contratoCtrl.newContrato.tipoFianca == 'Caução'">
+        <div class="col-md-3" >
+            <div class="form-group">
+                <label>Valor do Caução</label>
+                <div class="input-group">
+                    <span class="input-group-addon">R$</span>
+                    <input type="text" ng-model="contratoCtrl.newContrato.valorCaucao" class="form-control"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

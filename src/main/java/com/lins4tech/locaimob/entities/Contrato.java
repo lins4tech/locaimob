@@ -51,8 +51,6 @@ public class Contrato implements Serializable {
 	@JoinColumn(name = "idlocatario")
 	private Pessoa locatario;
 
-	@Column(name = "apolicesegurofianca")
-	private String apoliceSeguroFianca;
 
 	@Column(name = "dataassinatura")
 	@Temporal(TemporalType.DATE)
@@ -113,6 +111,9 @@ public class Contrato implements Serializable {
 	@Column(name = "qtdaluguelmultadescumprimento")
 	private Integer qtdAluguelMultaDescumprimento;
 
+	@Column(name = "apolicesegurofianca")
+	private String apoliceSeguroFianca;
+
 	@Column(name = "seguradorasegurofianca")
 	private String seguradoraSeguroFianca;
 
@@ -123,13 +124,16 @@ public class Contrato implements Serializable {
 	private Double valorAdministracao;
 
 	@Column(name = "valoratualaluguel")
-	private Double valorAtualaluguel;
+	private Double valorAtualAluguel;
 
-	@Column(name = "valorBaseAluguel")
-	private Double valorbasealuguel;
+	@Column(name = "valorbasealuguel")
+	private Double valorBaseAluguel;
 
-	@Column(name = "valorCaucao")
-	private Double valorcaucao;
+	@Column(name = "valorcaucao")
+	private Double valorCaucao;
+
+	@Column(name = "tipofianca")
+	private String tipoFianca;
 
 	public Contrato() {
 	}
@@ -140,6 +144,38 @@ public class Contrato implements Serializable {
 
 	public void setIdcontrato(Integer idcontrato) {
 		this.idcontrato = idcontrato;
+	}
+
+	public Corretor getCorretor() {
+		return corretor;
+	}
+
+	public void setCorretor(Corretor corretor) {
+		this.corretor = corretor;
+	}
+
+	public Pessoa getFiador() {
+		return fiador;
+	}
+
+	public void setFiador(Pessoa fiador) {
+		this.fiador = fiador;
+	}
+
+	public Imovel getImovel() {
+		return imovel;
+	}
+
+	public void setImovel(Imovel imovel) {
+		this.imovel = imovel;
+	}
+
+	public Pessoa getLocatario() {
+		return locatario;
+	}
+
+	public void setLocatario(Pessoa locatario) {
+		this.locatario = locatario;
 	}
 
 	public String getApoliceSeguroFianca() {
@@ -318,60 +354,35 @@ public class Contrato implements Serializable {
 		this.valorAdministracao = valorAdministracao;
 	}
 
-	public Double getValorAtualaluguel() {
-		return valorAtualaluguel;
+	public Double getValorAtualAluguel() {
+		return valorAtualAluguel;
 	}
 
-	public void setValorAtualaluguel(Double valorAtualaluguel) {
-		this.valorAtualaluguel = valorAtualaluguel;
+	public void setValorAtualAluguel(Double valorAtualAluguel) {
+		this.valorAtualAluguel = valorAtualAluguel;
 	}
 
-	public Double getValorbasealuguel() {
-		return valorbasealuguel;
+	public Double getValorBaseAluguel() {
+		return valorBaseAluguel;
 	}
 
-	public void setValorbasealuguel(Double valorbasealuguel) {
-		this.valorbasealuguel = valorbasealuguel;
+	public void setValorBaseAluguel(Double valorBaseAluguel) {
+		this.valorBaseAluguel = valorBaseAluguel;
 	}
 
-	public Double getValorcaucao() {
-		return valorcaucao;
+	public Double getValorCaucao() {
+		return valorCaucao;
 	}
 
-	public void setValorcaucao(Double valorcaucao) {
-		this.valorcaucao = valorcaucao;
+	public void setValorCaucao(Double valorCaucao) {
+		this.valorCaucao = valorCaucao;
 	}
 
-	public Corretor getCorretor() {
-		return corretor;
+	public String getTipoFianca() {
+		return tipoFianca;
 	}
 
-	public void setCorretor(Corretor corretor) {
-		this.corretor = corretor;
+	public void setTipoFianca(String tipoFianca) {
+		this.tipoFianca = tipoFianca;
 	}
-
-	public Pessoa getFiador() {
-		return fiador;
-	}
-
-	public void setFiador(Pessoa fiador) {
-		this.fiador = fiador;
-	}
-
-	public Imovel getImovel() {
-		return imovel;
-	}
-
-	public void setImovel(Imovel imovel) {
-		this.imovel = imovel;
-	}
-
-	public Pessoa getLocatario() {
-		return locatario;
-	}
-
-	public void setLocatario(Pessoa locatario) {
-		this.locatario = locatario;
-	}
-
 }

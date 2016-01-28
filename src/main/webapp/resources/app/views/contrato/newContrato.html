@@ -11,17 +11,17 @@
                         <h4>Imóvel</h4>
                         <small class="text-muted">Selecionar o imóvel</small>
                     </li>
-                    <li ng-class="{'active':wizard.active(2)}" ng-click="wizard.go(2)" class="col-md-3">
+                    <li ng-class="{'active':wizard.active(2)}" ng-click="contratoCtrl.validateEntryFormInquilino() == true ? wizard.go(2) : null" class="col-md-3">
                         <h4>Inquilino</h4>
                         <small class="text-muted">Informações do Cliente</small>
                     </li>
-                    <li ng-class="{'active':wizard.active(3)}" ng-click="wizard.go(3)" class="col-md-3">
+                    <li ng-class="{'active':wizard.active(3)}" ng-click="contratoCtrl.validateEntryFormFianca() == true ? wizard.go(3) : null" class="col-md-3">
+                        <h4>Fiança</h4>
+                        <small class="text-muted">Fiador, Seguro ou Caução</small>
+                    </li>
+                    <li ng-class="{'active':wizard.active(4)}" ng-click="contratoCtrl.validateEntryFormDadosDoContrato() == true ? wizard.go(4) : null" class="col-md-3">
                         <h4>Dados do Contrato</h4>
                         <small class="text-muted">Detalhes do Contrato</small>
-                    </li>
-                    <li ng-class="{'active':wizard.active(4)}" ng-click="wizard.go(4)" class="col-md-3">
-                        <h4>Pronto!</h4>
-                        <small class="text-muted">Contrato Cadastrado</small>
                     </li>
                 </ol>
                 <!-- END wizard steps indicator-->
@@ -31,13 +31,13 @@
                         <legend>Imóvel</legend>
                         <div ng-include="'resources/app/views/contrato/contratoFormImovel.html'" />
                     </fieldset>
-                    <ul class="pager" ng-show="contratoCtrl.imovelSelected">
+                    <ul class="pager" ng-show="contratoCtrl.imovelSelected.idimovel  > 0">
                         <li class="next"><a href="#" ng-click="wizard.go(2)">Avançar<span>&rarr;</span></a>
                         </li>
                     </ul>
                 </div>
 
-                <!-- SEGUNDA PARTE - ENDERECO FORM -->
+                <!-- SEGUNDA PARTE - INQUILINO FORM -->
                 <div id="step2" ng-show="wizard.active(2)">
                     <fieldset>
                         <legend>Locatário - Inquilino</legend>
@@ -49,16 +49,16 @@
                                 <span>&larr; Voltar</span>
                             </a>
                         </li>
-                        <li class="next"><a href="#" ng-click="wizard.go(3)">Avançar <span>&rarr;</span></a>
+                        <li ng-show="contratoCtrl.pessoaSelected.idPessoa > 0" class="next"><a href="#" ng-click="wizard.go(3)">Avançar <span>&rarr;</span></a>
                         </li>
                     </ul>
                 </div>
 
-                <!-- START Wizard Step inputs -->
+                <!-- TERCEIRA PARTE - FIANÇA FORM -->
                 <div id="step3" ng-show="wizard.active(3)">
                     <fieldset>
-                        <legend>Documentos/Arquivos do Cliente</legend>
-                        <div ng-include="'resources/app/views/upload/fileUpload.html'" />
+                        <legend>Fiança</legend>
+                        <div ng-include="'resources/app/views/contrato/contratoFormFianca.html'" />
                     </fieldset>
                     <ul class="pager">
                         <li class="previous">
@@ -66,29 +66,28 @@
                                 <span>&larr; Voltar</span>
                             </a>
                         </li>
-                        <li class="next"><a href="#" ng-click="wizard.go(4)">Finalizar <span>&rarr;</span></a>
+                        <li  class="next"><a href="#" ng-click="contratoCtrl.validateEntryFormDadosDoContrato() == true ? wizard.go(4) : null">Avançar <span>&rarr;</span></a>
                         </li>
                     </ul>
                 </div>
-                <!-- END Wizard Step inputs -->
+
                 <!-- START Wizard Step inputs -->
-                <div id="step4" ng-show="wizard.active(4)">
-                    <div class="jumbotron">
-                        <h1>Cliente Cadastrado!</h1>
-                        <p>O Cliente foi Cadastrado com Sucesso!.</p>
-                        <p>
-                            <button type="button" class="btn btn-info btn-lg">You can Proceed Now</button>
-                        </p>
-                    </div>
+                <div id="step3" ng-show="wizard.active(4)">
+                    <fieldset>
+                        <legend>Documentos/Arquivos do Cliente</legend>
+                        <div ng-include="'resources/app/views/contrato/contratoFormDadosDoContrato.html'" />
+                    </fieldset>
                     <ul class="pager">
                         <li class="previous">
                             <a href="#" ng-click="wizard.go(3)">
                                 <span>&larr; Voltar</span>
                             </a>
                         </li>
+                        <li class="next"><a href="#" ng-click="wizard.go(4)">SALVAR <span>&rarr;</span></a>
+                        </li>
                     </ul>
                 </div>
-                <!-- END Wizard Step inputs -->
+
             </div>
         </form>
     </div>
