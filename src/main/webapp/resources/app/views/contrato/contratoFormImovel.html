@@ -10,49 +10,46 @@
         <button ng-click="contratoModalInstanceCtrl.cancel()" class="btn btn-warning">Fechar</button>
     </div>
 </script>
-<button type="button" ng-click="contratoCtrl.openSelecionarImovel('lg')" class="btn btn-primary">{{contratoCtrl.imovelSelected.idimovel > 0 ? 'Alterar Imóvel' : 'Selecionar Imóvel'}}</button>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="controls">
+                <button type="button" ng-click="contratoCtrl.openSelecionarImovel('lg')" class="btn btn-primary">{{contratoCtrl.imovelSelected.idimovel > 0 ? 'Alterar Imóvel' : 'Selecionar Imóvel'}}</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row" ng-show="contratoCtrl.imovelSelected.idimovel > 0">
     <div class="col-md-6">
         <div class="form-group">
             <label>Proprietário do Imóvel (LOCADOR)</label>
-
             <div class="controls">
-                <input type="text" name="proprietarioDoImovelInput"
-                       ng-value="contratoCtrl.imovelSelected.locador.nomeCompleto" ng-disabled="true"
-                       class="form-control"/>
+                <label style="padding-left: 10px; color: #0066ff">{{contratoCtrl.imovelSelected.locador.nomeCompleto}}</label>
             </div>
         </div>
         <div class="form-group">
             <label>Tipo do Imóvel</label>
-
             <div class="controls">
-                <input type="text" name="tipoImovelInput" ng-value="contratoCtrl.imovelSelected.tipoImovel"
-                       ng-disabled="true" class="form-control"/>
+                <label style="padding-left: 10px; color: #0066ff">{{contratoCtrl.imovelSelected.tipoImovel}}</label>
             </div>
         </div>
         <div class="form-group">
             <label>Título do Imóvel</label>
-
             <div class="controls">
-                <input type="text" name="tituloImovelInput" ng-model="contratoCtrl.imovelSelected.tituloImovel"
-                       ng-disabled="true" class="form-control"/>
+                <label style="padding-left: 10px; color: #0066ff">{{contratoCtrl.imovelSelected.tituloImovel}}</label>
             </div>
         </div>
         <div class="form-group">
             <label>Descrição do Imóvel</label>
-
             <div class="controls">
-                <textarea name="descricaoImovelInput" ng-model="contratoCtrl.imovelSelected.descricao"
-                       ng-disabled="true" class="form-control"/>
+                <label style="padding-left: 10px; color: #0066ff">{{contratoCtrl.imovelSelected.descricao}}</label>
             </div>
         </div>
         <div class="form-group">
             <label>Endereço</label>
-
             <div class="controls">
-                <input type="text" name="enderecoImovelInput" ng-value="contratoCtrl.imovelSelectedEnderecoFull"
-                       ng-disabled="true" class="form-control"/>
+                <label style="padding-left: 10px; color: #0066ff">{{contratoCtrl.getEnderecoImovelFull(contratoCtrl.imovelSelected.endereco)}}</label>
             </div>
         </div>
 

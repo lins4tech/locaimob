@@ -35,8 +35,6 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
 
     self.isSemFianca = false;
 
-    self.imovelSelectedEnderecoFull = "";
-
     self.dateToday = new Date();
 
     self.statusDateInicioContratoPicker = {
@@ -151,6 +149,13 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
         return "";
     };
 
+    self.getEnderecoImovelFull = function(endereco) {
+        if(endereco != null) {
+            return endereco.logradouro + ", " + endereco.bairro;
+        }
+        return "";
+    };
+
     self.changeIsSemCorretor = function () {
         if (self.isSemCorretor) {
             self.corretorResponsavelSelected = {idPessoa: 0};
@@ -204,7 +209,6 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
         uibModalInstance.result.then(function (imovelSelected) {
             if (imovelSelected != null) {
                 self.imovelSelected = imovelSelected;
-                self.imovelSelectedEnderecoFull = imovelSelected.endereco.logradouro + ", " + imovelSelected.endereco.bairro
                 $log.info("Imóvel Selecionado: " + imovelSelected.idimovel);
             } else {
                 $log.info("Nenhum imóvel foi selecionado no Modal!");
