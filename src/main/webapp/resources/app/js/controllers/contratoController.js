@@ -138,6 +138,19 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
         self.changeDefaultTerminoDate(); //Atualizar Data de Termino
     };
 
+    self.getCpfOrCnpjWithMask = function(cpfOrCnpj) {
+        if(cpfOrCnpj != null) {
+            if(cpfOrCnpj.length == 11) {
+                return cpfOrCnpj.slice(0,3)+"."+cpfOrCnpj.slice(3,6)+"."+cpfOrCnpj.slice(6,9)+"-"+cpfOrCnpj.slice(9);
+            }
+            if(cpfOrCnpj.length == 14) {
+                return cpfOrCnpj.slice(0,2)+"."+cpfOrCnpj.slice(2,5)+"."+cpfOrCnpj.slice(5,8)+"/"+cpfOrCnpj.slice(8,12)+"-"+cpfOrCnpj.slice(12);
+            }
+            return cpfOrCnpj;
+        }
+        return "";
+    };
+
     self.changeIsSemCorretor = function () {
         if (self.isSemCorretor) {
             self.corretorResponsavelSelected = {idPessoa: 0};
