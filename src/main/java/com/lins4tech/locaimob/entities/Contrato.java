@@ -99,8 +99,8 @@ public class Contrato implements Serializable {
 
 	private String observacao;
 
-	@Column(name = "porcentagemjurosdia")
-	private Double porcentagemJurosDia;
+	@Column(name = "porcentagemjurosmensal")
+	private Double porcentagemJurosMensal;
 
 	@Column(name = "porcentagemmultaatraso")
 	private Double porcentagemMultaAtraso;
@@ -134,6 +134,9 @@ public class Contrato implements Serializable {
 
 	@Column(name = "tipofianca")
 	private String tipoFianca;
+	//Padrão: 01A11M29D
+	@Column(name = "duracaocontratostring")
+	private String duracaoContratoString;
 
 	public Contrato() {
 	}
@@ -298,12 +301,12 @@ public class Contrato implements Serializable {
 		this.observacao = observacao;
 	}
 
-	public Double getPorcentagemJurosDia() {
-		return porcentagemJurosDia;
+	public Double getPorcentagemJurosMensal() {
+		return porcentagemJurosMensal;
 	}
 
-	public void setPorcentagemJurosDia(Double porcentagemJurosDia) {
-		this.porcentagemJurosDia = porcentagemJurosDia;
+	public void setPorcentagemJurosMensal(Double porcentagemJurosMensal) {
+		this.porcentagemJurosMensal = porcentagemJurosMensal;
 	}
 
 	public Double getPorcentagemMultaAtraso() {
@@ -384,5 +387,13 @@ public class Contrato implements Serializable {
 
 	public void setTipoFianca(String tipoFianca) {
 		this.tipoFianca = tipoFianca;
+	}
+
+	public String getDuracaoContratoString() {
+		return duracaoContratoString;
+	}
+
+	public void setDuracaoContratoString(String duracaoContratoString) {
+		this.duracaoContratoString = duracaoContratoString;
 	}
 }

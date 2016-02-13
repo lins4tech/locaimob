@@ -7,21 +7,25 @@
             <div class="form-wizard wizard-horizontal">
                 <!-- MENU/Passos DO WIZARD-->
                 <ol class="row">
-                    <li ng-class="{'active':wizard.active(1)}" ng-click="wizard.go(1)" class="col-md-3">
-                        <h4>Imóvel</h4>
+                    <li ng-class="{'active':wizard.active(1)}" ng-click="wizard.go(1)" class="col-md-2">
+                        <h4>1.Imóvel</h4>
                         <small class="text-muted">Selecionar o imóvel</small>
                     </li>
-                    <li ng-class="{'active':wizard.active(2)}" ng-click="contratoCtrl.validateEntryFormInquilino() == true ? wizard.go(2) : null" class="col-md-3">
-                        <h4>Inquilino</h4>
+                    <li ng-class="{'active':wizard.active(2)}" ng-click="contratoCtrl.validateEntryFormInquilino() == true ? wizard.go(2) : null" class="col-md-2">
+                        <h4>2.Inquilino</h4>
                         <small class="text-muted">Informações do Cliente</small>
                     </li>
-                    <li ng-class="{'active':wizard.active(3)}" ng-click="contratoCtrl.validateEntryFormFianca() == true ? wizard.go(3) : null" class="col-md-3">
-                        <h4>Fiança</h4>
+                    <li ng-class="{'active':wizard.active(3)}" ng-click="contratoCtrl.validateEntryFormFianca() == true ? wizard.go(3) : null" class="col-md-2">
+                        <h4>3.Fiança</h4>
                         <small class="text-muted">Fiador, Seguro ou Caução</small>
                     </li>
-                    <li ng-class="{'active':wizard.active(4)}" ng-click="contratoCtrl.validateEntryFormDadosDoContrato() == true ? wizard.go(4) : null" class="col-md-3">
-                        <h4>Dados do Contrato</h4>
+                    <li ng-class="{'active':wizard.active(4)}" ng-click="contratoCtrl.validateEntryFormDadosDoContrato() == true ? wizard.go(5) : null" class="col-md-2">
+                        <h4>4.Dados do Contrato</h4>
                         <small class="text-muted">Detalhes do Contrato</small>
+                    </li>
+                    <li ng-class="{'active':wizard.active(5)}" ng-click="contratoCtrl.validateEntryFormDadosDoContrato() == true ? wizard.go(4) : null" class="col-md-2">
+                        <h4>5.Documentos</h4>
+                        <small class="text-muted">Docs e Anexos do Contrato</small>
                     </li>
                 </ol>
                 <!-- END wizard steps indicator-->

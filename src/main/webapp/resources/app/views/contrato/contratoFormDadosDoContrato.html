@@ -1,0 +1,272 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Corretor Responsável pela Locação</label>
+            <div class="controls">
+                <ui-select ng-model="contratoCtrl.corretorResponsavelSelected" theme="bootstrap" ng-disabled="contratoCtrl.isSemCorretor">
+                    <ui-select-match placeholder="Consultar por NOME ou EMAIL">{{$select.selected.nomeCorretor}}
+                    </ui-select-match>
+                    <ui-select-choices
+                            repeat="corretor in contratoCtrl.listCorretores | propsFilter: {nomeCorretor: $select.search, email: $select.search}">
+                        <div ng-bind-html="corretor.nomeCorretor | highlight: $select.search"></div>
+                        <small>E-mail:
+                            <span ng-bind-html="''+corretor.email | highlight: $select.search"></span>
+                        </small>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="checkbox c-checkbox" style="padding-top: 20px">
+                    <label>
+                        <input type="checkbox" checked="" ng-model="contratoCtrl.isSemCorretor" ng-change="contratoCtrl.changeIsSemCorretor()"/>
+                        <span class="fa fa-check"></span>Sem Corretor</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Finalidade do Aluguel</label>
+
+            <div style="padding-top: 5px">
+                <label class="radio-inline c-radio">
+                    <input type="radio" ng-model="contratoCtrl.newContrato.tipoAluguel" name="radioTipoAluguel"
+                           value="Residencial" checked="checked"/>
+                    <span class="fa fa-home"></span>
+                    Residencial
+                </label>
+                <label class="radio-inline c-radio">
+                    <input type="radio" ng-model="contratoCtrl.newContrato.tipoAluguel" name="radioTipoAluguel"
+                           value="Comercial"/>
+                    <span class="fa fa-building"></span>
+                    Comercial
+                </label>
+                <label class="radio-inline c-radio">
+                    <input id="inputRadioTipoFiancaCaucao" type="radio" ng-model="contratoCtrl.newContrato.tipoAluguel"
+                           name="radioTipoAluguel" value="Ambos"/>
+                    <span class="fa fa-circle"></span>
+                    Ambos
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Duração do Contrato (Anos, Meses, Dias)</label>
+
+            <div class="input-group">
+                <select class="form-control" ng-model="contratoCtrl.duracaoContratoAnos" convert-to-number
+                        ng-change="contratoCtrl.changeDuracaoDoContrato()"
+                        style="width: 105px"
+                        ng-options="qtdAno==0 ? 'Nenhum' : qtdAno==1 ? qtdAno + ' Ano' : qtdAno + ' Anos' for qtdAno in contratoCtrl.listQtdAnosDuracao">
+                </select>
+                <select class="form-control" ng-model="contratoCtrl.duracaoContratoMeses" convert-to-number
+                        ng-change="contratoCtrl.changeDuracaoDoContrato()"
+                        style="width: 105px"
+                        ng-options="qtdMes==0 ? 'Nenhum' : qtdMes==1 ? qtdMes + ' Mês' : qtdMes + ' Meses' for qtdMes in contratoCtrl.listQtdMesesDuracao">
+                </select>
+                <select class="form-control" ng-model="contratoCtrl.duracaoContratoDias" convert-to-number
+                        ng-change="contratoCtrl.changeDuracaoDoContrato()"
+                        style="width: 105px"
+                        ng-options="qtdDia==0?'Nenhum' : qtdDia==1 ? qtdDia + ' Dia' : qtdDia+' Dias' for qtdDia in contratoCtrl.listQtdDiasDuracao">
+                </select>
+                <label style="text-align: center; padding-top: 5px; padding-left: 5px; font-style: italic">Período:
+                    {{contratoCtrl.labelDuracaoContrato == ''? '*Defina a duração do
+                    contrato':contratoCtrl.labelDuracaoContrato}}</label>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="inputDataInicioContrato">Início do Contrato</label>
+
+            <p class="input-group" style="max-width: 250px">
+                <input id="inputDataInicioContrato" type="text" class="form-control"
+                       ng-change="contratoCtrl.changeDefaultTerminoDate()"
+                       ng-model="contratoCtrl.newContrato.dataInicioPeriodo" uib-datepicker-popup="dd/MM/yyyy"
+                       placeholder="Selecione a data" is-open="contratoCtrl.statusDateInicioContratoPicker.opened"
+                       ng-readonly="true"
+                       datepicker-mode="year" close-text="Fechar" current-text="Hoje"
+                       clear-text="Limpar"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default"
+                                ng-click="contratoCtrl.openDateInicioContratoPicker($event)">
+                            <i class="icon-calendar"></i>
+                        </button>
+                    </span>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="inputDataTerminoContrato">Término do Contrato</label>
+
+            <p class="input-group">
+                <input id="inputDataTerminoContrato" type="text" class="form-control" style="max-width: 250px"
+                       ng-model="contratoCtrl.newContrato.dataTerminoPeriodo" uib-datepicker-popup="dd/MM/yyyy"
+                       ng-readonly="true" is-open="contratoCtrl.statusDateTerminoContratoPicker.opened"
+                       datepicker-mode="year" min-date="contratoCtrl.newContrato.dataInicioPeriodo" close-text="Fechar"
+                       current-text="Hoje"
+                       clear-text="Limpar"/>
+                <!--<span class="input-group-btn">-->
+                <!--<button type="button" class="btn btn-default"-->
+                <!--ng-disabled="contratoCtrl.newContrato.dataInicioPeriodo == null"-->
+                <!--ng-click="contratoCtrl.openDateTerminoContratoPicker($event)">-->
+                <!--<i class="icon-calendar"></i>-->
+                <!--</button>-->
+                <!--</span>-->
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Valor do Aluguel</label>
+
+            <div class="input-group">
+                <span class="input-group-addon">R$</span>
+                <input type="text" class="form-control" ng-model="contratoCtrl.newContrato.valorBaseAluguel"
+                       placeholder="Valor do Aluguel" style="max-width: 250px"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Forma de Pagamento</label>
+
+            <div class="input-group">
+                <select class="form-control" ng-model="contratoCtrl.newContrato.formaPagamento">
+                    <option ng-repeat="forma in contratoCtrl.formasDePagamento" value="{{forma}}">{{forma}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Dia do Vencimento</label>
+
+            <div class="input-group">
+                <select class="form-control" ng-model="contratoCtrl.newContrato.diaVencimento"
+                        ng-options="diaOption for diaOption in contratoCtrl.listDiasVencimento">
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Multa Por Atraso</label>
+
+            <div class="input-group spinner">
+                <span class="input-group-addon">%</span>
+                <input type="text" ng-readyonly="true" ng-model="contratoCtrl.newContrato.porcentagemMultaAtraso"
+                       class="form-control"/>
+
+                <div class="input-group-btn-vertical">
+                    <button class="btn btn-default" type="button"
+                            ng-click="contratoCtrl.clickAddNumericStepPorcentagemMulta(0.5,20)"><i
+                            class="fa fa-caret-up"></i></button>
+                    <button class="btn btn-default" type="button"
+                            ng-click="contratoCtrl.clickDecreaseNumericStepPorcentagemMulta(0.5,0)"><i
+                            class="fa fa-caret-down"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Atraso Juros ao Mês</label>
+
+            <div class="input-group spinner">
+                <span class="input-group-addon">%</span>
+                <input type="text" ng-readyonly="true" ng-model="contratoCtrl.newContrato.porcentagemJurosMensal"
+                       class="form-control"/>
+
+                <div class="input-group-btn-vertical">
+                    <button class="btn btn-default" type="button"
+                            ng-click="contratoCtrl.clickAddNumericStepJurosMensal(0.5,10)"><i
+                            class="fa fa-caret-up"></i></button>
+                    <button class="btn btn-default" type="button"
+                            ng-click="contratoCtrl.clickDecreaseNumericStepJurosMensal(0.5,0)"><i
+                            class="fa fa-caret-down"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Multa por Descumprimento</label>
+
+            <div class="input-group">
+                <select class="form-control" ng-model="contratoCtrl.newContrato.qtdAluguelMultaDescumprimento"
+                        convert-to-number
+                        ng-options="multa==0?'Sem Multa':multa==1?multa+' Aluguel':multa+' Aluguéis' for multa in contratoCtrl.listQtdMultaPorDescumprimento">
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Índice de Reajuste</label>
+
+            <div class="input-group">
+                <select class="form-control" ng-model="contratoCtrl.newContrato.principalIndiceReajuste"
+                        ng-options="indice for indice in contratoCtrl.listIndicesReajuste">
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <br class="form-group">
+        <label>Responsabilidades do Locatário (Taxas)</label>
+
+        <div class="input-group">
+
+            <label class="checkbox-inline c-checkbox" style="width: 125px">
+                <input type="checkbox" checked="" ng-model="contratoCtrl.newContrato.hasEnergia"/>
+                <span class="fa fa-check"></span>Luz/Energia
+            </label>
+            <label class="checkbox-inline c-checkbox" style="width: 125px">
+                <input type="checkbox" checked="" ng-model="contratoCtrl.newContrato.hasAgua"/>
+                <span class="fa fa-check"></span>Água/Esgoto
+            </label>
+            <label class="checkbox-inline c-checkbox">
+                <input type="checkbox" checked="" ng-model="contratoCtrl.newContrato.hasGas"/>
+                <span class="fa fa-check"></span>Gás
+            </label>
+            </br>
+            <label class="checkbox-inline c-checkbox" style="width: 125px">
+                <input type="checkbox" checked="" ng-model="contratoCtrl.newContrato.hasIptu"/>
+                <span class="fa fa-check"></span>IPTU/TCR
+            </label>
+            <label class="checkbox-inline c-checkbox">
+                <input type="checkbox" checked="" ng-model="contratoCtrl.newContrato.hasCondominio"/>
+                <span class="fa fa-check"></span>Taxa Condomínio
+            </label>
+
+        </div>
+    </div>
+</div>
