@@ -38,7 +38,7 @@
             <div style="padding-top: 5px">
                 <label class="radio-inline c-radio">
                     <input type="radio" ng-model="contratoCtrl.newContrato.tipoAluguel" name="radioTipoAluguel"
-                           value="Residencial" checked="checked"/>
+                           value="Residencial" checked="true"/>
                     <span class="fa fa-home"></span>
                     Residencial
                 </label>
@@ -117,18 +117,33 @@
 
             <p class="input-group">
                 <input id="inputDataTerminoContrato" type="text" class="form-control" style="max-width: 250px"
-                       ng-model="contratoCtrl.newContrato.dataTerminoPeriodo" uib-datepicker-popup="dd/MM/yyyy"
+                       ng-model="contratoCtrl.newContrato.dataFimPeriodo" uib-datepicker-popup="dd/MM/yyyy"
                        ng-readonly="true" is-open="contratoCtrl.statusDateTerminoContratoPicker.opened"
                        datepicker-mode="year" min-date="contratoCtrl.newContrato.dataInicioPeriodo" close-text="Fechar"
                        current-text="Hoje"
                        clear-text="Limpar"/>
-                <!--<span class="input-group-btn">-->
-                <!--<button type="button" class="btn btn-default"-->
-                <!--ng-disabled="contratoCtrl.newContrato.dataInicioPeriodo == null"-->
-                <!--ng-click="contratoCtrl.openDateTerminoContratoPicker($event)">-->
-                <!--<i class="icon-calendar"></i>-->
-                <!--</button>-->
-                <!--</span>-->
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="inputDataAssinaturaContrato">Data da Assinatura</label>
+
+            <p class="input-group" style="max-width: 250px">
+                <input id="inputDataAssinaturaContrato" type="text" class="form-control"
+                       ng-model="contratoCtrl.newContrato.dataAssinatura" uib-datepicker-popup="dd/MM/yyyy"
+                       placeholder="Selecione a data" is-open="contratoCtrl.statusDateAssinaturaContratoPicker.opened"
+                       ng-readonly="true"
+                       datepicker-mode="year" close-text="Fechar" current-text="Hoje"
+                       clear-text="Limpar"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default"
+                                ng-click="contratoCtrl.openDateAssinaturaContratoPicker()">
+                            <i class="icon-calendar"></i>
+                        </button>
+                    </span>
             </p>
         </div>
     </div>

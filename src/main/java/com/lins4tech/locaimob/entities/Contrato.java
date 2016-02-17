@@ -47,7 +47,7 @@ public class Contrato implements Serializable {
 	private Imovel imovel;
 
 	// bi-directional many-to-one association to Pessoa
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@ManyToOne
 	@JoinColumn(name = "idlocatario")
 	private Pessoa locatario;
 

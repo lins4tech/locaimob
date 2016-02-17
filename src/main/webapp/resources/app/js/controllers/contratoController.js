@@ -1,7 +1,7 @@
 /**
  * Created by Lins on 29/12/2015.
  */
-angular.module("angle").controller("contratoController", ["$scope", "$uibModal", "$log", "$location", "SweetAlert", "clienteService", "imovelService", "corretorService", function ($scope, $uibModal, $log, $location, SweetAlert, clienteService, imovelService, corretorService) {
+angular.module("angle").controller("contratoController", ["$scope", "$uibModal", "$log", "$location", "SweetAlert", "contratoService", "clienteService", "imovelService", "corretorService", function ($scope, $uibModal, $log, $location, SweetAlert, contratoService, clienteService, imovelService, corretorService) {
     var self = this;
 
     self.listPessoas = [];
@@ -14,22 +14,25 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
         diaVencimento: 1,
         formaPagamento: "Boleto",
         qtdAluguelMultaDescumprimento: 3,
-        principalIndiceReajuste: "IGP-M"
+        principalIndiceReajuste: "IGP-M",
+        tipoAluguel: "Residencial"
     };
 
     self.imovelSelected = {
         idimovel: 0
     };
-
+    //LOCATÁRIO
     self.pessoaSelected = {
         idPessoa: 0
     };
 
     self.corretorResponsavelSelected = {
-        idPessoa: 0
+        nomeCorretor: "Nenhum Corretor Selecionado",
+        idcorretor: 0
     };
 
     self.fiadorSelected = {
+        nome: "Nenhum Fiador Selecionado",
         idPessoa: 0
     };
 
@@ -45,6 +48,10 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
         opened: false
     };
 
+    self.statusDateAssinaturaContratoPicker = {
+        opened: false
+    };
+
     self.duracaoContratoAnos = 1;
     self.duracaoContratoMeses = 0;
     self.duracaoContratoDias = 0;
@@ -53,6 +60,7 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
     self.listQtdMesesDuracao = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     self.listQtdDiasDuracao = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
     self.labelDuracaoContrato = "1 Ano";
+    self.duracaoContratoString = "01A"; //01A11M29D
     self.formasDePagamento = ["Boleto", "Transferência Bancária", "Em Espécie", "Cheques"];
     self.listQtdMultaPorDescumprimento = [0, 1, 2, 3];
     self.listIndicesReajuste = ["IGP-M", "INPC", "IPC"];
@@ -68,13 +76,16 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
         self.statusDateTerminoContratoPicker.opened = true;
     };
 
+    self.openDateAssinaturaContratoPicker = function () {
+        self.statusDateAssinaturaContratoPicker.opened = true;
+    };
+
     self.changeDefaultTerminoDate = function () {
         if (self.newContrato.dataInicioPeriodo != null && self.newContrato.dataInicioPeriodo instanceof Date) {
-            self.newContrato.dataTerminoPeriodo = new Date(self.newContrato.dataInicioPeriodo.getTime());
-            self.newContrato.dataTerminoPeriodo.setFullYear(self.newContrato.dataTerminoPeriodo.getFullYear() + self.duracaoContratoAnos);
-            self.newContrato.dataTerminoPeriodo.setMonth(self.newContrato.dataTerminoPeriodo.getMonth() + self.duracaoContratoMeses);
-            self.newContrato.dataTerminoPeriodo.setDate(self.newContrato.dataTerminoPeriodo.getDate() + self.duracaoContratoDias);
-
+            self.newContrato.dataFimPeriodo = new Date(self.newContrato.dataInicioPeriodo.getTime());
+            self.newContrato.dataFimPeriodo.setFullYear(self.newContrato.dataFimPeriodo.getFullYear() + self.duracaoContratoAnos);
+            self.newContrato.dataFimPeriodo.setMonth(self.newContrato.dataFimPeriodo.getMonth() + self.duracaoContratoMeses);
+            self.newContrato.dataFimPeriodo.setDate(self.newContrato.dataFimPeriodo.getDate() + self.duracaoContratoDias);
         }
 
     };
@@ -101,16 +112,31 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
         }
     };
 
+    self.changeTipoFiancaContrato = function () {
+        self.fiadorSelected = { nome: "Nenhum Fiador Selecionado", idPessoa: 0 };
+        self.newContrato.fiador = null;
+        self.valorCaucao = null;
+        self.newContrato.seguradoraSeguroFianca = null;
+        self.newContrato.apoliceSeguroFianca = null;
+    };
+
     self.changeDuracaoDoContrato = function () {
         self.labelDuracaoContrato = "";
+        self.duracaoContratoString = "";
         var isQtdAnoSelected = self.duracaoContratoAnos > 0;
         var isQtdMesSelected = self.duracaoContratoMeses > 0;
         var isQtdDiaSelected = self.duracaoContratoDias > 0;
         if (isQtdAnoSelected) {
             if (self.duracaoContratoAnos == 1) {
                 self.labelDuracaoContrato = "1 Ano";
+                self.duracaoContratoString = "01A";
             } else {
                 self.labelDuracaoContrato = self.duracaoContratoAnos + " Anos";
+                if(self.duracaoContratoAnos < 10) {
+                    self.duracaoContratoString = "0" + self.duracaoContratoAnos + "A";
+                }else{
+                    self.duracaoContratoString = self.duracaoContratoAnos + "A";
+                }
             }
         }
         if (isQtdMesSelected) {
@@ -119,8 +145,14 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
             }
             if (self.duracaoContratoMeses == 1) {
                 self.labelDuracaoContrato = self.labelDuracaoContrato + "1 Mês";
+                self.duracaoContratoString = self.duracaoContratoString + "01M";
             } else {
                 self.labelDuracaoContrato = self.labelDuracaoContrato + self.duracaoContratoMeses + " Meses";
+                if(self.duracaoContratoMeses < 10) {
+                    self.duracaoContratoString = self.duracaoContratoString + "0" + self.duracaoContratoMeses + "M";
+                }else{
+                    self.duracaoContratoString = self.duracaoContratoString + self.duracaoContratoMeses + "M";
+                }
             }
         }
         if (isQtdDiaSelected) {
@@ -129,8 +161,14 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
             }
             if (self.duracaoContratoDias == 1) {
                 self.labelDuracaoContrato = self.labelDuracaoContrato + self.duracaoContratoDias + "1 Dia";
+                self.duracaoContratoString = self.duracaoContratoString + "01D";
             } else {
                 self.labelDuracaoContrato = self.labelDuracaoContrato + self.duracaoContratoDias + " Dias";
+                if(self.duracaoContratoDias < 10) {
+                    self.duracaoContratoString = self.duracaoContratoString + "0" + self.duracaoContratoDias + "D";
+                }else{
+                    self.duracaoContratoString = self.duracaoContratoString + self.duracaoContratoDias + "D";
+                }
             }
         }
         self.changeDefaultTerminoDate(); //Atualizar Data de Termino
@@ -158,13 +196,52 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
 
     self.changeIsSemCorretor = function () {
         if (self.isSemCorretor) {
-            self.corretorResponsavelSelected = {idPessoa: 0};
+            self.corretorResponsavelSelected = {idcorretor: 0};
         }
     };
 
     /*
      ##FIM DE FUNÇÕES/MÉTODOS UTILITÁRIOS##
      */
+
+
+    /**
+     * ## INÍCIO DE REQUISIÇÔES/SOLICITAÇÕES DE SERVIÇOS
+     */
+
+    self.saveNewContrato = function () {
+        self.newContrato.locatario = {idpessoa: self.pessoaSelected.idPessoa};
+        self.newContrato.imovel = self.imovelSelected;
+        if(self.isSemFianca) {
+            self.newContrato.tipoFianca = null;
+            self.newContrato.fiador = null;
+            self.valorCaucao = null;
+            self.newContrato.seguradoraSeguroFianca = null;
+            self.newContrato.apoliceSeguroFianca = null;
+        }else{
+            if(self.newContrato.tipoFianca == "Fiador" && self.fiadorSelected.idPessoa > 0){
+                self.newContrato.fiador = {idpessoa: self.fiadorSelected.idPessoa};
+            }
+        }
+        if(self.fiadorSelected.idPessoa > 0 && self.isSemFianca == false) {
+            self.newContrato.fiador = {idpessoa: self.fiadorSelected.idPessoa};
+        }
+        if(self.corretorResponsavelSelected.idPessoa > 0 && self.isSemCorretor == false) {
+            self.newContrato.corretor = {idcorretor: self.corretorResponsavelSelected.idcorretor};
+        }
+        self.newContrato.duracaoContratoString = self.duracaoContratoString;
+        if(self.validateFormToSaveNewContrato()) {
+            contratoService.saveContrato(self.newContrato).then(
+                function sucessSaveContrato(response) {
+                    self.openConfirmAlertSaveContrato();
+                },
+                function errorSaveContrato(response) {
+                    self.openErrorComunicateServer();
+                }
+            );
+        }
+    };
+
     self.findListPessoas = function () {
         clienteService.findAllPessoaVO().then(
             function sucessFindAllPessoaVO(response) {
@@ -219,43 +296,52 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
     };
 
     /**
-     * Validação de Form
+     * Validar entrada no FormInquilino
+     * @returns {boolean}
      */
     self.validateEntryFormInquilino = function () {
         if (self.imovelSelected.idimovel > 0) {
             return true;
         } else {
-            self.openAlerErrorMessage("É necessário selecionar o IMÓVEL do contrato!");
+            self.openAlertErrorMessage("É necessário selecionar o IMÓVEL do contrato!");
             return false;
         }
     };
 
+    /**
+     * Validar entrada no FormFianca
+     * @returns {boolean}
+     */
     self.validateEntryFormFianca = function () {
         if (self.validateEntryFormInquilino()) {
             if (self.pessoaSelected.idPessoa > 0) {
                 return true;
             } else {
-                self.openAlerErrorMessage("É necessário selecionar o LOCATÁRIO/INQUILINO do contrato!");
+                self.openAlertErrorMessage("É necessário selecionar o LOCATÁRIO/INQUILINO do contrato!");
             }
         } else {
             return false;
         }
     };
 
+    /**
+     * Validar entrada no FormDadosDoContrato
+     * @returns {boolean}
+     */
     self.validateEntryFormDadosDoContrato = function () {
         if (self.validateEntryFormInquilino() && self.validateEntryFormFianca()) {
             if (self.isSemFianca) {
                 return true;
             } else {
                 if (self.newContrato.tipoFianca == null) {
-                    self.openAlerErrorMessage("É necessário selecionar o Tipo de Fiança do contrato!");
+                    self.openAlertErrorMessage("É necessário selecionar o Tipo de Fiança do contrato!");
                     return false;
                 }
                 if (self.newContrato.tipoFianca == "Fiador") {
                     if (self.fiadorSelected.idPessoa > 0) {
                         return true;
                     } else {
-                        self.openAlerErrorMessage("É necessário selecionar o FIADOR do contrato!");
+                        self.openAlertErrorMessage("É necessário selecionar o FIADOR do contrato!");
                         return false;
                     }
                 }
@@ -264,9 +350,9 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
                         return true;
                     } else {
                         if (self.newContrato.seguradoraSeguroFianca == null || self.newContrato.seguradoraSeguroFianca.length <= 0) {
-                            self.openAlerErrorMessage("É necessário informar o nome da SEGURADORA do Seguro-Fiança!");
+                            self.openAlertErrorMessage("É necessário informar o nome da SEGURADORA do Seguro-Fiança!");
                         } else {
-                            self.openAlerErrorMessage("É necessário informar o número da APÓLICE do Seguro-Fiança!");
+                            self.openAlertErrorMessage("É necessário informar o número da APÓLICE do Seguro-Fiança!");
                         }
                         return false;
                     }
@@ -275,7 +361,7 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
                     if (self.newContrato.valorCaucao != null) {
                         return true;
                     } else {
-                        self.openAlerErrorMessage("É necessário informar o valor do CAUÇÃO do contrato!");
+                        self.openAlertErrorMessage("É necessário informar o valor do CAUÇÃO do contrato!");
                         return false;
                     }
                 }
@@ -286,6 +372,31 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
         }
     };
 
+    self.validateFormToSaveNewContrato = function () {
+        if(self.validateEntryFormInquilino() && self.validateEntryFormFianca() && self.validateEntryFormDadosDoContrato()) {
+            var validationMessageError = "";
+            if(self.corretorResponsavelSelected.idcorretor == 0 && self.isSemCorretor == false) {
+                validationMessageError = validationMessageError + "*Corretor Responsável<br>";
+            }
+            if(self.newContrato.valorBaseAluguel == null || self.newContrato.valorBaseAluguel <= 0 ) {
+                validationMessageError = validationMessageError + "*Valor Do Aluguel<br>";
+            }
+            if(self.newContrato.dataInicioPeriodo == null) {
+                validationMessageError = validationMessageError + "*Data de Início do Contrato<br>";
+            }
+            if(self.newContrato.dataAssinatura == null) {
+                validationMessageError = validationMessageError + "*Data da Assinatura do Contrato<br>";
+            }
+            if(validationMessageError != "") {
+                self.openAlertValidationMessage(validationMessageError);
+                return false;
+            }
+        }else{
+            return false;
+        }
+        return true;
+    };
+
 
     /**
      * Mensagens de Alerts e Erros
@@ -293,11 +404,26 @@ angular.module("angle").controller("contratoController", ["$scope", "$uibModal",
     self.openErrorComunicateServer = function () {
         SweetAlert.swal("Desculpe...", "Ocorreu um erro ao tentar tentar conectar no servidor, por favor verifique o seu acesso a internet. " +
             "Caso o problema persista, entre em contato com o administrador do sistema!", "error");
-    }
+    };
 
-    self.openAlerErrorMessage = function (errorMessage) {
+    self.openAlertErrorMessage = function (errorMessage) {
         SweetAlert.swal(errorMessage, null, "error");
-    }
+    };
+
+    self.openAlertValidationMessage = function (validationMessageFields) {
+        //SweetAlert.swal("Por favor, preencha os seguintes campos:", validationMessageFields, "error");
+        validationMessageFields = '<span style="color:#ff0002">' + validationMessageFields + '<span>';
+        SweetAlert.swal({
+            title: "Por favor, preencha os seguintes campos:",
+            text: validationMessageFields,
+            type: "error",
+            html: true })
+    };
+
+
+    self.openConfirmAlertSaveContrato = function () {
+        SweetAlert.swal("Contrato Cadastrado com Sucesso!", "Informações do Contrato", "success");
+    };
 
 
 }])

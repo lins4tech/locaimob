@@ -4,7 +4,7 @@
             <div class="input-group">
                 <div class="checkbox c-checkbox">
                     <label>
-                        <input type="checkbox" checked="" ng-model="contratoCtrl.isSemFianca" />
+                        <input type="checkbox" checked="" ng-model="contratoCtrl.isSemFianca" ng-change="contratoCtrl.changeTipoFiancaContrato()" />
                         <span class="fa fa-check"></span>Contrato Sem Fiança</label>
                 </div>
             </div>
@@ -17,17 +17,17 @@
             <label>Tipo de Fiança</label>
             <div style="padding-top: 5px">
                 <label class="radio-inline c-radio">
-                    <input id="inputRadioTipoSerguroFiador" type="radio" ng-model="contratoCtrl.newContrato.tipoFianca" name="radioTipoFianca" value="Fiador" checked="checked"/>
+                    <input id="inputRadioTipoSerguroFiador" type="radio" ng-model="contratoCtrl.newContrato.tipoFianca" name="radioTipoFianca" value="Fiador" checked="checked" ng-change="contratoCtrl.changeTipoFiancaContrato()"/>
                     <span class="fa fa-user"></span>
                     Com Fiador
                 </label>
                 <label class="radio-inline c-radio">
-                    <input id="inputRadioTipoFiancaSeguro" type="radio" ng-model="contratoCtrl.newContrato.tipoFianca" name="radioTipoFianca" value="Seguro-Fiança"/>
+                    <input id="inputRadioTipoFiancaSeguro" type="radio" ng-model="contratoCtrl.newContrato.tipoFianca" name="radioTipoFianca" value="Seguro-Fiança" ng-change="contratoCtrl.changeTipoFiancaContrato()"/>
                     <span class="fa fa-lock"></span>
                     Seguro-Fiança
                 </label>
                 <label class="radio-inline c-radio">
-                    <input id="inputRadioTipoFiancaCaucao" type="radio" ng-model="contratoCtrl.newContrato.tipoFianca" name="radioTipoFianca" value="Caução"/>
+                    <input id="inputRadioTipoFiancaCaucao" type="radio" ng-model="contratoCtrl.newContrato.tipoFianca" name="radioTipoFianca" value="Caução" ng-change="contratoCtrl.changeTipoFiancaContrato()"/>
                     <span class="fa fa-money"></span>
                     Caução/Depósito
                 </label>
