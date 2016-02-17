@@ -1,52 +1,70 @@
-<div ng-controller="corretorController as corretorCtrl" class="panel panel-primary">
-	<div class="panel-heading">
-		<h3 class="panel-title">Corretores</h3>
-	</div>
-	<script type="text/ng-template" id="myModalContent.html">
-		<div class="modal-header">
-			<h3 class="modal-title">Novo Corretor</h3>
-		</div>
-		<div class="modal-body">
-			<form name="corretorForm" class="simple-form">
-				<div class="form-group">
-					<label for="inputNomeCompleto">Nome Completo</label>
-					<input id="inputNomeCompleto" type="text" class="form-control" ng-model="corretorCtrlModal.corretor.nomeCorretor" />
-				</div>
-				<div class="form-group">
-					<label for="inputEmail">E-Mail</label>
-					<input id="inputEmail" type="text" class="form-control" ng-model="corretorCtrlModal.corretor.email" />
-				</div>
-				<div class="form-group">
-					<label for="inputSexo">Sexo</label>
-					<select id="inputSexo" class="form-control">
-						<option value="Masculino">Masculino</option>
-						<option value="Feminino">Feminino</option>
-					</select>
-				</div>				
+<h3>Novo Corretor
+</h3>
+<div class="panel panel-default" ng-controller="corretorController as corretorCtrl">
+    <div class="panel-body">
+        <form action="/" method="POST">
+            <legend>Informações do Corretor</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Nome Completo</label>
 
+                        <div class="controls">
+                            <input type="text" ng-model="corretorCtrl.newCorretor.nomeCorretor"
+                                   placeholder="Nome Completo" required="required" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">E-mail</label>
+                        <input type="email" placeholder="E-mail" class="form-control"
+                               ng-model="corretorCtrl.newCorretor.email"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="inputDataNascimentoCorretor">Data de Nascimento</label>
+                        <p class="input-group">
+                            <input id="inputDataNascimentoCorretor" type="text" class="form-control"
+                                   ng-model="corretorCtrl.newCorretor.dataNascimento" uib-datepicker-popup="dd/MM/yyyy"
+                                   placeholder="DD/MM/YYYY" is-open="corretorCtrl.statusDatePicker.opened"
+                                   datepicker-mode="year" max-date="corretorCtrl.dateToday" close-text="Fechar"
+                                   current-text="Hoje"
+                                   clear-text="Limpar"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="corretorCtrl.openDatePicker($event)">
+                                    <i class="icon-calendar"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Tel. Residencial</label>
+                        <input type="text" ng-model="corretorCtrl.newCorretor.telResidencial" masked
+                               ui-mask="(99)9999-9999" placeholder="(##)####-####" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Celular</label>
+                        <input type="text" name="celularInput" ng-model="corretorCtrl.newCorretor.telCelular" masked
+                               ui-mask="(99)99999-9999" placeholder="(##)#####-####" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary" ng-click="corretorCtrl.saveCorretor()" ng-disabled="corretorForm.$invalid">Salvar</button>
+            </div>
+        </form>
 
-				<div class="form-group">
-					<label for="inputDataNascimento">Data de Nascimento</label>
-					<p class="input-group">
-						<input id="inputDataNascimento" type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" placeholder="DD/MM/YYYY" ng-model="corretorCtrlModal.corretor.dataNascimento" is-open="corretorCtrlModal.statusDatePicker.opened" datepicker-mode="year" ng-required="true" max-date="corretorCtrlModal.dateToday" close-text="Fechar" current-text="Hoje" clear-text="Limpar" />
-              				<span class="input-group-btn">
-                				<button type="button" class="btn btn-default" ng-click="corretorCtrlModal.openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              				</span>
-					</p>
-				</div>
-
-			</form>
-		</div>
-
-		<div class="modal-footer">
-			<button type="button" class="btn btn-primary" ng-click="corretorCtrlModal.saveCorretor(corretorCtrlModal.corretor)" ng-disabled="corretorForm.$invalid">Salvar</button>
-			<button type="button" class="btn btn-danger" ng-click="corretorCtrlModal.ok()">Cancelar</button>
-		</div>
-	</script>
-	<div>
-		<button type="button" class="btn btn-default" ng-click="corretorCtrl.open('sm')">Novo Corretor</button>
-		<div id="grid1" ui-grid="corretorCtrl.gridOptions"
-			 ui-grid-resize-columns="" ui-grid-move-columns=""></div>
-	</div>
-	
+    </div>
 </div>

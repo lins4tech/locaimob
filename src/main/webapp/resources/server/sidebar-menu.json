@@ -19,7 +19,16 @@
   {
     "text": "Corretores",
     "sref": "app.viewCorretores",
-    "icon": "icon-user"
+    "icon": "icon-user",
+    "submenu": [
+      { "text": "Novo Corretor",
+        "sref": "app.newCorretor"
+      },
+      { "text": "Consultar",
+        "sref": "app.consultarCorretor",
+        "icon": "fa fa-search"
+      }
+    ]
   },
   {
     "text": "Contratos",

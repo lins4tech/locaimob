@@ -6,102 +6,122 @@ import java.util.Date;
 
 /**
  * The persistent class for the corretor database table.
- * 
  */
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Corretor.findAllAtivos", query = "SELECT c FROM Corretor c WHERE c.ativo = true ORDER BY c.nomeCorretor"),
-		@NamedQuery(name = "Corretor.findAllInativos", query = "SELECT c FROM Corretor c WHERE c.ativo = false ORDER BY c.nomeCorretor")
+        @NamedQuery(name = "Corretor.findAllAtivos", query = "SELECT c FROM Corretor c WHERE c.ativo = true ORDER BY c.nomeCorretor"),
+        @NamedQuery(name = "Corretor.findAllInativos", query = "SELECT c FROM Corretor c WHERE c.ativo = false ORDER BY c.nomeCorretor")
 })
 
 public class Corretor implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public static final String FIND_ALL_ATIVOS = "Corretor.findAllAtivos";
-	public static final String FIND_ALL_INATIVOS = "Corretor.findAllInativos";
+    public static final String FIND_ALL_ATIVOS = "Corretor.findAllAtivos";
+    public static final String FIND_ALL_INATIVOS = "Corretor.findAllInativos";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idcorretor;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idcorretor;
 
-	@Column(name = "datacadastro")
-	@Temporal(TemporalType.DATE)
-	private Date dataCadastro;
+    @Column(name = "datacadastro")
+    @Temporal(TemporalType.DATE)
+    private Date dataCadastro;
 
-	@Column(name = "datanascimento")
-	@Temporal(TemporalType.DATE)
-	private Date dataNascimento;
+    @Column(name = "datanascimento")
+    @Temporal(TemporalType.DATE)
+    private Date dataNascimento;
 
-	@Column(name = "nomecorretor")
-	private String nomeCorretor;
+    @Column(name = "nomecorretor")
+    private String nomeCorretor;
 
-	@Column(name = "email")
-	private String email;
+    @Column(name = "email")
+    private String email;
 
-	@Column(name = "ativo")
-	private Boolean ativo;
+    @Column(name = "ativo")
+    private Boolean ativo;
 
-	@Column(name = "dataultimaatualizacao")
-	@Temporal(TemporalType.DATE)
-	private Date dataUltimaAtualizacao;
+    @Column(name = "dataultimaatualizacao")
+    @Temporal(TemporalType.DATE)
+    private Date dataUltimaAtualizacao;
 
-	public Corretor() {
-	}
+    @Column(name = "telcelular")
+    private String telCelular;
 
-	public Integer getIdcorretor() {
-		return idcorretor;
-	}
+    @Column(name = "telresidencial")
+    private String telResidencial;
 
-	public void setIdcorretor(Integer idcorretor) {
-		this.idcorretor = idcorretor;
-	}
+    public Corretor() {
+    }
 
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
+    public Integer getIdcorretor() {
+        return idcorretor;
+    }
 
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
+    public void setIdcorretor(Integer idcorretor) {
+        this.idcorretor = idcorretor;
+    }
 
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
 
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
 
-	public String getNomeCorretor() {
-		return nomeCorretor;
-	}
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
 
-	public void setNomeCorretor(String nomeCorretor) {
-		this.nomeCorretor = nomeCorretor;
-	}
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getNomeCorretor() {
+        return nomeCorretor;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setNomeCorretor(String nomeCorretor) {
+        this.nomeCorretor = nomeCorretor;
+    }
 
-	public Boolean getAtivo() {
-		return ativo;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public Date getDataUltimaAtualizacao() {
-		return dataUltimaAtualizacao;
-	}
+    public Boolean getAtivo() {
+        return ativo;
+    }
 
-	public void setDataUltimaAtualizacao(Date dataUltimaAtualizacao) {
-		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
-	}
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
 
+    public Date getDataUltimaAtualizacao() {
+        return dataUltimaAtualizacao;
+    }
+
+    public void setDataUltimaAtualizacao(Date dataUltimaAtualizacao) {
+        this.dataUltimaAtualizacao = dataUltimaAtualizacao;
+    }
+
+    public String getTelCelular() {
+        return telCelular;
+    }
+
+    public void setTelCelular(String telCelular) {
+        this.telCelular = telCelular;
+    }
+
+    public String getTelResidencial() {
+        return telResidencial;
+    }
+
+    public void setTelResidencial(String telResidencial) {
+        this.telResidencial = telResidencial;
+    }
 }

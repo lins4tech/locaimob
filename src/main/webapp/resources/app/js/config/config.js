@@ -68,10 +68,10 @@
                 resolve: helper.resolveFor('parsley', 'angularFileUpload', 'filestyle', 'ui.select')
 
             })
-            .state('app.viewCorretores', {
-                url: '/viewCorretores',
+            .state('app.newCorretor', {
+                url: '/newCorretor',
                 title: 'Corretor',
-                templateUrl: helper.basepath('corretor/NewCorretor.html')
+                templateUrl: helper.basepath('corretor/newCorretor.html')
             })
             //
             // CUSTOM RESOLVES

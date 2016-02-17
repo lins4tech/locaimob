@@ -1,13 +1,13 @@
 /**
  * Created by Lins on 14/12/2015.
  */
-angular.module("angle").controller("corretorController", ["$scope", "$uibModal", "$log", "corretorService", function($scope, $uibModal, $log, corretorService) {
+angular.module("angle").controller("corretorController", ["$scope", "$uibModal", "$log", "corretorService", "SweetAlert", function($scope, $uibModal, $log, corretorService, SweetAlert) {
 
     var self = this;
 
-    self.listCorretor = [];
+    self.newCorretor = {};
 
-    self.lastCorretorSaved = {};
+    self.listCorretor = [];
 
     self.dateToday = new Date();
 
@@ -19,28 +19,23 @@ angular.module("angle").controller("corretorController", ["$scope", "$uibModal",
         self.statusDatePicker.opened = true;
     };
 
+    /**
+     * ## Chamandas aos Services
+     */
 
-    self.open = function (size) {
-        var uibModalInstance = $uibModal.open({
-            animation: true,
-            templateUrl: 'myModalContent.html',
-            controller: 'corretorControllerModalInstance as corretorCtrlModal',
-            size: size,
-            resolve: {
-                items: function () {
-                    return $scope.items;
+    self.saveCorretor = function () {
+        if (self.validateFormSaveCorretor()) {
+            corretorService.saveCorretor(self.newCorretor).then(
+                function sucessSaveCorretor(response) {
+                    SweetAlert.swal("Corretor cadastrado com Sucesso!", response.data.nomeCorretor, "success");
+                },
+                function errorSaveCorretor(response) {
+                    self.openErrorAlertSave();
                 }
-            }
-        });
-
-        uibModalInstance.result.then(function (corretorSalvo) {
-            if(corretorSalvo != null) {
-                self.lastCorretorSaved = corretorSalvo;
-            }
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
-        });
+            );
+        }
     };
+
     self.findAllCorretorAtivos = function () {
         corretorService.findAllCorretorAtivos().then(
             function sucessFindAllCorretorAtivos(response) {
@@ -49,7 +44,36 @@ angular.module("angle").controller("corretorController", ["$scope", "$uibModal",
             },
             function errorFindAllCorretorAtivos(response) {
                 alert("Error - Ocorreu um Erro ao tentar realizar a consulta de corretores.");
-            });
+            }
+        );
+    };
+
+    self.validateFormSaveCorretor = function () {
+        var validationMessageError = "";
+        if(self.newCorretor.nomeCorretor == null || self.newCorretor.nomeCorretor.length == 0) {
+            validationMessageError = "*Nome do Corretor<br>";
+        }
+        if(self.newCorretor.email == null || self.newCorretor.email.length == 0) {
+            validationMessageError = validationMessageError + "*E-mail<br>";
+        }
+
+        if(self.newCorretor.dataNascimento == null) {
+            validationMessageError = validationMessageError + "*Data de Nascimento";
+        }
+        if(validationMessageError.length > 0) {
+            self.openAlertValidationMessage(validationMessageError);
+            return false;
+        }
+        return true;
+    };
+
+    self.openAlertValidationMessage = function (validationMessageFields) {
+        validationMessageFields = '<span style="color:#ff0002">' + validationMessageFields + '<span>';
+        SweetAlert.swal({
+            title: "Por favor, preencha os seguintes campos corretamente:",
+            text: validationMessageFields,
+            type: "error",
+            html: true })
     };
 
     self.findAllCorretorAtivos();
@@ -62,6 +86,10 @@ angular.module("angle").controller("corretorController", ["$scope", "$uibModal",
             { name: "E-Mail", field: 'email', width: '30%', maxWidth: 200, minWidth: 70 },
             { name: "Data de Nascimento", field: 'dataNascimento', width: '20%' }
         ]
+    };
+
+    self.openErrorAlertSave = function () {
+        SweetAlert.swal("Desculpe...", "Ocorreu um erro ao tentar cadastrar o corretor. Por favor, entre em contato com o administrador do Sistema!", "error");
     };
 
 
